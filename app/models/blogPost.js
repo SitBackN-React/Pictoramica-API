@@ -9,7 +9,7 @@ const blogPostSchema = new mongoose.Schema({
   content: {
     type: String
   },
-  comments: [commentSchema],
+  comments: [commentSchema]
 }, {
   timestamps: true
 })
