@@ -1,16 +1,10 @@
 const mongoose = require('mongoose')
 
+const blogPostSchema = require('./blogPost')
 const blogSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
-  },
-  text: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String
   },
   blogPosts: [blogPostSchema],
   owner: {
