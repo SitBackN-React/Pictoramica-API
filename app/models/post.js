@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const commentSchema = require('./comment')
 
-const blogPostSchema = new mongoose.Schema({
+const postSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
@@ -14,4 +14,4 @@ const blogPostSchema = new mongoose.Schema({
   timestamps: true
 })
 
-module.exports = blogPostSchema
+module.exports = postSchema
