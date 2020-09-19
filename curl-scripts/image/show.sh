@@ -1,5 +1,5 @@
 API="http://localhost:4741"
-URL_PATH="/image"
+URL_PATH="/images"
 
 curl "${API}${URL_PATH}/${ID}" \
   --include \
