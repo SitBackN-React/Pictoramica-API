@@ -38,7 +38,7 @@ router.post('/blogs/:blogId/blogPosts/:blogPostId/comments', requireToken, (req,
     .catch(next)
 })
 
-// UPDATE comment info
+// UPDATE comment
 router.patch('/blogs/:blogId/blogPosts/:blogPostId/comments/:commentId', requireToken, removeBlanks, (req, res, next) => {
   delete req.body.comment.owner
   const blogId = req.params.blogId
@@ -60,3 +60,29 @@ router.patch('/blogs/:blogId/blogPosts/:blogPostId/comments/:commentId', require
     .then(blog => res.status(200).json({ blog: blog }))
     .catch(next)
 })
+
+// DELETE comment
+router.delete('/blogs/:blogId/blogPosts/:blogPostId/comments/:commentId', requireToken, (req, res, next) => {
+  // get blog id from the params
+  const blogId = req.params.blogId
+  // get the blog post id from the params
+  const blogPostId = req.params.blogPostId
+  // get the comment id from the params
+  const commentId = req.params.commentId
+  // find the blog by its id
+  Blog.findById(blogId)
+    .then(handle404)
+    .then(blog => {
+      // require ownership
+      requireOwnership(req, blog)
+      // remove the specific comment by inserting the blog post id, and comment id
+      blog.blogPosts.id(blogPostId).comments.id(commentId).remove()
+      // save and return the blog
+      return blog.save()
+    })
+    // respond to user with NO CONTENT message
+    .then(() => res.sendStatus(204))
+    .catch(next)
+})
+
+module.exports = router
