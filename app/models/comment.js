@@ -5,7 +5,7 @@ const commentSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  commentor: {
+  commenter: {
     // References use the type ObjectId
     type: mongoose.Schema.Types.ObjectId,
     // the name of the model to which they refer
