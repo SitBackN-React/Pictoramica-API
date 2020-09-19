@@ -8,7 +8,7 @@ const exampleRoutes = require('./app/routes/example_routes')
 const userRoutes = require('./app/routes/user_routes')
 const imageRoutes = require('./app/routes/image_routes')
 const blogRoutes = require('./app/routes/blog_routes')
-const blogPostRoutes = require('./app/routes/blogPost_routes')
+// const blogPostRoutes = require('./app/routes/blogPost_routes')
 const commentRoutes = require('./app/routes/comment_routes')
 
 // require middleware
@@ -68,7 +68,7 @@ app.use(exampleRoutes)
 app.use(userRoutes)
 app.use(imageRoutes)
 app.use(blogRoutes)
-app.use(blogPostRoutes)
+// app.use(blogPostRoutes)
 app.use(commentRoutes)
 
 // register error handling middleware
