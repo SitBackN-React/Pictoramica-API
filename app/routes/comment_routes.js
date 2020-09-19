@@ -11,7 +11,7 @@ const requireOwnership = customErrors.requireOwnership
 
 const removeBlanks = require('../../lib/remove_blank_fields')
 
-const requireToken = passport.authentication('bearer', { session: false })
+const requireToken = passport.authenticate('bearer', { session: false })
 
 // CREATE a new comment
 router.post('/blogs/:blogId/posts/:postId/comments', requireToken, (req, res, next) => {
