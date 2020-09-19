@@ -15,7 +15,7 @@ const router = express.Router()
 
 // INDEX
 // GET /image
-router.get('/image', requireToken, (req, res, next) => {
+router.get('/images', requireToken, (req, res, next) => {
   Image.find({'owner': req.user.id})
     .populate('image')
     .then(image => {
@@ -37,7 +37,7 @@ router.post('/image', requireToken, (req, res, next) => {
 })
 
 // GET /image/:id
-router.get('/image/:id', requireToken, (req, res, next) => {
+router.get('/images/:id', requireToken, (req, res, next) => {
   Image.findById(req.params.id)
     .then(handle404)
     .then(image => res.status(200).json({ image: image.toObject() }))
