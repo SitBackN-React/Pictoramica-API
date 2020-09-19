@@ -33,7 +33,30 @@ router.post('/blogs/:blogId/blogPosts/:blogPostId/comments', requireToken, (req,
       // save and return the blog object
       return blog.save()
     })
-    // display created message and send back blog info to user
+    // respond to user with CREATED message and blog info
     .then(blog => res.status(201).json({ blog: blog }))
+    .catch(next)
+})
+
+// UPDATE comment info
+router.patch('/blogs/:blogId/blogPosts/:blogPostId/comments/:commentId', requireToken, removeBlanks, (req, res, next) => {
+  delete req.body.comment.owner
+  const blogId = req.params.blogId
+  const blogPostId = req.params.blogPostId
+  const commentId = req.params.commentId
+  const commentData = req.body.comment
+
+  // find the blog by its Id
+  Blog.findById(blogId)
+    .then(handle404)
+    .then(blog => {
+      requireOwnership(req, blog)
+      // find the blog post by its id and its comment by id and set the incoming comment data
+      blog.blogPosts.id(blogPostId).comments.id(commentId).set(commentData)
+      // save and return the updated blog
+      return blog.save()
+    })
+    // respond to user with OK message and the updated blog info
+    .then(blog => res.status(200).json({ blog: blog }))
     .catch(next)
 })

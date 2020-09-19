@@ -9,7 +9,7 @@ curl "${API}${URL_PATH}" \
   --data '{
     "comment": {
       "remark": "'"${REMARK}"'",
-      "commenter": "'"${COMMENTER_ID}"'"
+      "commenter": "'"${USER_ID}"'"
     }
   }'
 

@@ -8,6 +8,7 @@ curl "${API}${URL_PATH}" \
   --header "Authorization: Bearer ${TOKEN}" \
   --data '{
     "comment": {
-      "remark": "'"${REMARK}"'"
+      "remark": "'"${REMARK}"'",
+      "commenter": "'"${USER_ID}"'"
     }
   }'
