@@ -14,7 +14,7 @@ const removeBlanks = require('../../lib/remove_blank_fields')
 const requireToken = passport.authentication('bearer', { session: false })
 
 // CREATE a new comment
-router.post('/blogs/:blogId/blogPosts/:blogPostId/comments', requireToken, (req, res, next) => {
+router.post('/blogs/:blogId/posts/:postId/comments', requireToken, (req, res, next) => {
   // assign user's id to the comment's owner property
   req.body.comment.owner = req.user.id
   // get the comment data from the body of the request
@@ -22,14 +22,14 @@ router.post('/blogs/:blogId/blogPosts/:blogPostId/comments', requireToken, (req,
   // get the blog id from the params
   const blogId = req.params.blogId
   // get the blog post id from the params
-  const blogPostId = req.params.blogPostId
+  const postId = req.params.postId
   // find the blog by its id
   Blog.findById(blogId)
     .then(handle404)
-    // Then find specific blogPost by id
+    // Then find specific post by id
     .then(blog => {
       // and push the incoming data into the comments object
-      blog.blogPosts.id(blogPostId).comments.push(commentData)
+      blog.posts.id(postId).comments.push(commentData)
       // save and return the blog object
       return blog.save()
     })
@@ -39,10 +39,10 @@ router.post('/blogs/:blogId/blogPosts/:blogPostId/comments', requireToken, (req,
 })
 
 // UPDATE comment
-router.patch('/blogs/:blogId/blogPosts/:blogPostId/comments/:commentId', requireToken, removeBlanks, (req, res, next) => {
+router.patch('/blogs/:blogId/posts/:postId/comments/:commentId', requireToken, removeBlanks, (req, res, next) => {
   delete req.body.comment.owner
   const blogId = req.params.blogId
-  const blogPostId = req.params.blogPostId
+  const postId = req.params.postId
   const commentId = req.params.commentId
   const commentData = req.body.comment
 
@@ -52,7 +52,7 @@ router.patch('/blogs/:blogId/blogPosts/:blogPostId/comments/:commentId', require
     .then(blog => {
       requireOwnership(req, blog)
       // find the blog post by its id and its comment by id and set the incoming comment data
-      blog.blogPosts.id(blogPostId).comments.id(commentId).set(commentData)
+      blog.posts.id(postId).comments.id(commentId).set(commentData)
       // save and return the updated blog
       return blog.save()
     })
@@ -62,11 +62,11 @@ router.patch('/blogs/:blogId/blogPosts/:blogPostId/comments/:commentId', require
 })
 
 // DELETE comment
-router.delete('/blogs/:blogId/blogPosts/:blogPostId/comments/:commentId', requireToken, (req, res, next) => {
+router.delete('/blogs/:blogId/posts/:postId/comments/:commentId', requireToken, (req, res, next) => {
   // get blog id from the params
   const blogId = req.params.blogId
   // get the blog post id from the params
-  const blogPostId = req.params.blogPostId
+  const postId = req.params.postId
   // get the comment id from the params
   const commentId = req.params.commentId
   // find the blog by its id
@@ -76,7 +76,7 @@ router.delete('/blogs/:blogId/blogPosts/:blogPostId/comments/:commentId', requir
       // require ownership
       requireOwnership(req, blog)
       // remove the specific comment by inserting the blog post id, and comment id
-      blog.blogPosts.id(blogPostId).comments.id(commentId).remove()
+      blog.posts.id(postId).comments.id(commentId).remove()
       // save and return the blog
       return blog.save()
     })
@@ -86,11 +86,11 @@ router.delete('/blogs/:blogId/blogPosts/:blogPostId/comments/:commentId', requir
 })
 
 // SHOW a comment
-router.get('/blogs/:blogId/blogPosts/:blogPostId/comments/:commentId', (req, res, next) => {
+router.get('/blogs/:blogId/posts/:postId/comments/:commentId', (req, res, next) => {
   // get blog id from params
   const blogId = req.params.blogId
   // get blog post id from params
-  const blogPostId = req.params.blogPostId
+  const postId = req.params.postId
   // get comment id from params
   const commentId = req.params.commentId
   // find blog by its id
@@ -98,7 +98,7 @@ router.get('/blogs/:blogId/blogPosts/:blogPostId/comments/:commentId', (req, res
     .then(handle404)
     .then(blog => {
       // assign comment object to comment
-      let comment = blog.blogPosts.id(blogPostId).comments.id(commentId)
+      let comment = blog.posts.id(postId).comments.id(commentId)
       // handle404 for comment
       comment = handle404(comment)
       // respond to user with OK message and comment info
