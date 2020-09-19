@@ -1,5 +1,5 @@
 API="http://localhost:4741"
-URL_PATH="/blogs/${BLOG_ID}/blogPosts/${BLOGPOST_ID}/comments"
+URL_PATH="/blogs/${BLOG_ID}/posts/${POST_ID}/comments"
 
 curl "${API}${URL_PATH}" \
   --include \
