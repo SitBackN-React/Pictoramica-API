@@ -14,8 +14,9 @@ const removeBlanks = require('../../lib/remove_blank_fields')
 const requireToken = passport.authenticate('bearer', { session: false })
 
 // CREATE new blog post info
-router.post('/blogs/:blogId/posts', (req, res, next) => {
-  const postData = req.body.review
+router.post('/blogs/:blogId/posts', requireToken, (req, res, next) => {
+  req.body.post.owner = req.user.id
+  const postData = req.body.post
   const blogId = req.params.blogId
 
   Blog.findById(blogId)
