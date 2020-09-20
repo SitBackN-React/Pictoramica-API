@@ -3,7 +3,7 @@
 API="http://localhost:4741"
 URL_PATH="/blogs"
 
-curl "${API}${URL_PATH}/${BLOG_ID}/posts/${POST_ID}/edit-post" \
+curl "${API}${URL_PATH}/${BLOG_ID}/posts/${POST_ID}" \
   --include \
   --request PATCH \
   --header "Content-Type: application/json" \
