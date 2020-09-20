@@ -59,7 +59,7 @@ router.patch('/blogs/:blogId/posts/:postId', requireToken, removeBlanks, (req, r
       blog.posts.id(postId).set(postData)
       return blog.save()
     })
-    .then(song => res.status(200).json({song: song}))
+    .then(blog => res.status(200).json({blog: blog}))
     .catch(next)
 })
 
