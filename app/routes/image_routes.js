@@ -45,7 +45,7 @@ router.get('/images/:id', requireToken, (req, res, next) => {
 })
 
 // PATCH /image/:id
-router.patch('/image/:id', requireToken, removeBlanks, (req, res, next) => {
+router.patch('/images/:id', requireToken, removeBlanks, (req, res, next) => {
   delete req.body.image.owner
   Image.findById(req.params.id)
     .then(image => {
@@ -58,7 +58,7 @@ router.patch('/image/:id', requireToken, removeBlanks, (req, res, next) => {
 
 // DESTROY
 // DELETE /image/:id
-router.delete('/image/:id', requireToken, (req, res, next) => {
+router.delete('/images/:id', requireToken, (req, res, next) => {
   Image.findById(req.params.id)
     .then(handle404)
     .then(image => {
