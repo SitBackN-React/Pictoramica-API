@@ -69,4 +69,14 @@ router.delete('/images/:id', requireToken, (req, res, next) => {
     .catch(next)
 })
 
+// GET to show other user's images
+router.get('/images-other', (req, res, next) => {
+  Image.find().sort({ _id: -1 })
+    // .populate('images')
+    .then(otherImages => {
+      res.json({images: otherImages})
+    })
+    .catch(next)
+})
+
 module.exports = router
