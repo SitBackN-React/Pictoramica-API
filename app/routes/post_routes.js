@@ -28,7 +28,6 @@ router.post('/blogs/:blogId/posts', requireToken, (req, res, next) => {
     .then(blog => res.status(201).json({blog: blog}))
     .catch(next)
 })
-module.exports = router
 
 // SHOW show one post
 router.get('/blogs/:blogId/posts/:postId', requireToken, (req, res, next) => {
@@ -37,7 +36,7 @@ router.get('/blogs/:blogId/posts/:postId', requireToken, (req, res, next) => {
   Blog.findById(blogId)
     .then(handle404)
     .then(blog => {
-      let post = blog.post.id(postId)
+      let post = blog.posts.id(postId)
       post = handle404(post)
       res.status(200).json({post: post})
     })
