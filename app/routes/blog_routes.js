@@ -112,4 +112,16 @@ router.delete('/blogs/:id', requireToken, (req, res, next) => {
     .catch(next)
 })
 
+// INDEX
+// GET /myblogs
+router.get('/my-blogs', requireToken, (req, res, next) => {
+  Blog.find({'owner': req.user.id})
+    .populate('blog')
+    .then(blog => {
+      return blog.map(blog => blog.toObject())
+    })
+    .then(blogs => res.status(200).json({ blogs: blogs }))
+    .catch(next)
+})
+
 module.exports = router
