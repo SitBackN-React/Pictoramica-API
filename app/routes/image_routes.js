@@ -70,7 +70,7 @@ router.delete('/images/:id', requireToken, (req, res, next) => {
 })
 
 // GET to show other user's images
-router.get('/images-other', (req, res, next) => {
+router.get('/all-images', (req, res, next) => {
   Image.find().sort({ _id: -1 })
     // .populate('images')
     .then(otherImages => {
