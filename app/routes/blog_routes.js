@@ -124,4 +124,15 @@ router.get('/my-blogs', requireToken, (req, res, next) => {
     .catch(next)
 })
 
+// INDEX
+// GET to show other user's blogs
+router.get('/all-blogs', (req, res, next) => {
+  Blog.find().sort({ _id: -1 })
+    .then(otherBlogs => {
+      res.json({blogs: otherBlogs})
+    })
+    // if an error occurs, pass it to the handler
+    .catch(next)
+})
+
 module.exports = router
