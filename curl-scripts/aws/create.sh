@@ -7,8 +7,8 @@ curl "${API}${URL_PATH}" \
   --include \
   --header "Authorization: Token token=${TOKEN}" \
   --request POST \
-  # -F "image=@../tiny-cat.jpg" \
-  # -F "name=Tiny cat 2" \
-  # -F "description=Tiny pic of tiny cat" \
+  -F "image=@../tiny-cat.jpg" \
+  -F "name=Tiny cat 2" \
+  -F "description=Tiny pic of tiny cat" \
 
   echo

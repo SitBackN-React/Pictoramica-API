@@ -15,7 +15,7 @@ const router = express.Router()
 
 // INDEX
 // GET /image
-router.get('/images', requireToken, (req, res, next) => {
+router.get('/my-images', requireToken, (req, res, next) => {
   Image.find({'owner': req.user.id})
     .populate('image')
     .then(image => {
