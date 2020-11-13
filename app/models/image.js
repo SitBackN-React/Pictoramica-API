@@ -15,7 +15,7 @@ const imageSchema = new mongoose.Schema({
   },
 
   like: {
-    type: Number
+    type: Boolean
   },
 
   forSale: {
