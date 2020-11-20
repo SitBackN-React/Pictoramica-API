@@ -2,12 +2,11 @@ const mongoose = require('mongoose')
 
 const imageLikeSchema = new mongoose.Schema({
   liked: {
-    type: Boolean,
-    required: true
+    type: Boolean
   },
-  userId: {
-    type: String,
-    required: true
+  owner: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
   }
 }, {
   timestamps: true

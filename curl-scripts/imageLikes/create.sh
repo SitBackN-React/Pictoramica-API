@@ -8,8 +8,7 @@ curl "${API}${URL_PATH}/${IMAGE_ID}/imageLikes" \
   --header "Authorization: Bearer ${TOKEN}" \
   --data '{
     "imageLike": {
-      "liked": "'"${LIKED}"'",
-      "userId": "'"${USERID}"'"
+      "liked": "'"${LIKED}"'"
     }
   }'
 
