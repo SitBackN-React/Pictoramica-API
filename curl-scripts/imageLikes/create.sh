@@ -1,15 +1,14 @@
 API="http://localhost:4741"
-URL_PATH="/image-liked"
+URL_PATH="/images"
 
-curl "${API}${URL_PATH}" \
+curl "${API}${URL_PATH}/${IMAGE_ID}/imageLikes" \
   --include \
   --request POST \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer ${TOKEN}" \
   --data '{
-    "imageLiked": {
-      "liked": "'"${LIKED}"'",
-      "likedImageId": "'"${IMAGEID}"'"
+    "imageLike": {
+      "liked": "'"${LIKED}"'"
     }
   }'
 

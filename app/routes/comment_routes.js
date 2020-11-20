@@ -74,7 +74,7 @@ router.delete('/blogs/:blogId/posts/:postId/comments/:commentId', requireToken, 
     .then(handle404)
     .then(blog => {
       // require ownership
-      requireOwnership(req, blog)
+      // requireOwnership(req, blog)
       // remove the specific comment by inserting the blog post id, and comment id
       blog.posts.id(postId).comments.id(commentId).remove()
       // save and return the blog

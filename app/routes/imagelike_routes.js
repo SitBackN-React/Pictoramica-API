@@ -1,63 +1,66 @@
 const express = require('express')
 const passport = require('passport')
-const ImageLiked = require('./../models/imageLiked')
+const Image = require('./../models/image')
 const customErrors = require('../../lib/custom_errors')
 const removeBlanks = require('../../lib/remove_blank_fields')
 
 const handle404 = customErrors.handle404
 
-const requireOwnership = customErrors.requireOwnership
+// const requireOwnership = customErrors.requireOwnership
 
 const requireToken = passport.authenticate('bearer', { session: false })
 
 const router = express.Router()
 
-// CREATE imageliked
-router.post('/image-liked', requireToken, (req, res, next) => {
-  req.body.imageLiked.owner = req.user.id
+// CREATE imagelike
+router.post('/images/:imageId/imageLikes', requireToken, (req, res, next) => {
+  req.body.imageLike.owner = req.user.id
+  const imageLikeData = req.body.imageLike
+  const imageId = req.params.imageId
 
-  ImageLiked.create(req.body.imageLiked)
-    .then(imageLiked => {
-      res.status(201).json({imageLiked: imageLiked.toObject()})
+  Image.findById(imageId)
+    .then(handle404)
+    .then(image => {
+      image.imageLikes.push(imageLikeData)
+      return image.save()
     })
+    .then(image => {
+      res.status(201).json({image: image})
+    })
+    .catch(next)
 })
 
-// DELETE imageLiked
-router.delete('/image-liked/:id', requireToken, (req, res, next) => {
-  const id = req.params.id
+// UPDATE imageLike
+router.patch('/images/:imageId/imageLikes/:imageLikeId', requireToken, removeBlanks, (req, res, next) => {
+  delete req.body.imageLike.owner
 
-  ImageLiked.findById(id)
+  const imageLikeId = req.params.imageLikeId
+  const imageLikeData = req.body.imageLike
+  const imageId = req.params.imageId
+
+  Image.findById(imageId)
     .then(handle404)
-    .then(imageLiked => {
-      requireOwnership(req, imageLiked)
-      imageLiked.deleteOne()
+    .then(image => {
+      image.imageLikes.id(imageLikeId).set(imageLikeData)
+      return image.save()
+    })
+    .then(image => res.status(200).json({image: image}))
+    .catch(next)
+})
+
+// DELETE imageLike
+router.delete('/images/:imageId/imageLikes/:imageLikeId', requireToken, (req, res, next) => {
+  const imageId = req.params.imageId
+  const imageLikeId = req.params.imageLikeId
+
+  Image.findById(imageId)
+    .then(handle404)
+    .then(image => {
+      // requireOwnership(req, image)
+      image.imageLikes.id(imageLikeId).remove()
+      return image.save()
     })
     .then(() => res.sendStatus(204))
-    .catch(next)
-})
-
-// GET all imageLiked
-router.get('/image-liked', requireToken, (req, res, next) => {
-  ImageLiked.find({'owner': req.user.id})
-    .populate('imageLiked')
-    .then(imageLiked => {
-      return imageLiked.map(imageLiked => imageLiked.toObject())
-    })
-    .then(imageLiked => res.status(200).json({imageLiked: imageLiked}))
-    .catch(next)
-})
-
-// UPDATE imageLiked
-router.patch('/image-liked/:id', requireToken, removeBlanks, (req, res, next) => {
-  delete req.body.imageLiked.owner
-
-  ImageLiked.findById(req.params.id)
-    .then(handle404)
-    .then(imageLiked => {
-      requireOwnership(req, imageLiked)
-      return imageLiked.updateOne(req.body.imageLiked)
-    })
-    .then(imageLiked => res.status(200).json({imageLiked: imageLiked}))
     .catch(next)
 })
 

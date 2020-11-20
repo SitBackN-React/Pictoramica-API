@@ -27,7 +27,7 @@ router.get('/my-images', requireToken, (req, res, next) => {
 
 // CREATE
 // POST /image/
-router.post('/image', requireToken, (req, res, next) => {
+router.post('/images', requireToken, (req, res, next) => {
   req.body.image.owner = req.user.id
   Image.create(req.body.image)
     .then(image => {
