@@ -16,7 +16,7 @@ const requireToken = passport.authenticate('bearer', { session: false })
 // CREATE a new comment
 router.post('/blogs/:blogId/posts/:postId/comments', requireToken, (req, res, next) => {
   // assign user's id to the comment's owner property
-  req.body.comment.owner = req.user.id
+  req.body.comment.commenter = req.user.id
   // get the comment data from the body of the request
   const commentData = req.body.comment
   // get the blog id from the params
@@ -40,7 +40,7 @@ router.post('/blogs/:blogId/posts/:postId/comments', requireToken, (req, res, ne
 
 // UPDATE comment
 router.patch('/blogs/:blogId/posts/:postId/comments/:commentId', requireToken, removeBlanks, (req, res, next) => {
-  delete req.body.comment.owner
+  delete req.body.comment.commenter
   const blogId = req.params.blogId
   const postId = req.params.postId
   const commentId = req.params.commentId
