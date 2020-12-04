@@ -22,13 +22,14 @@ const randomChars = num => {
   return result
 }
 
-router.post('./post-image', requireToken, upload.single('image'), (req, res, next) => {
+router.post('/post-image', requireToken, upload.single('image'), (req, res, next) => {
   s3Upload(req.file, req.body.tag + randomChars(16))
     .then((data) => {
       return Image.create({
         tag: req.body.tag,
         caption: req.body.caption,
         imageUrl: data.Location,
+        forSale: req.body.forSale,
         owner: req.user.id
       })
     })
