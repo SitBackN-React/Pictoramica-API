@@ -15,15 +15,12 @@ const imageSchema = new mongoose.Schema({
     required: true
   },
 
-  like: {
-    type: Number
-  },
-
   imageLikes: [imageLikeSchema],
 
   forSale: {
     type: Boolean
   },
+
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
