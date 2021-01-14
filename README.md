@@ -3,6 +3,10 @@ Pictoramica-API is the backend API for the Pictoramica-Client application. Using
 
 ## Created By: Darius Williams, Shafqat Ahmad, Christine Huang, and Ashley Norwood.
 
+## Links
+-Application:
+-Frontend Repo: https://github.com/SitBackN-React/Pictoramica-Client
+
 ## API Endpoints
 ### Images
 | Verb   | URI Pattern     | Controller#Action  |
