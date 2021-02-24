@@ -80,17 +80,6 @@ router.get('/all-images', (req, res, next) => {
 })
 
 // PATCH /image/:id
-router.patch('/images/:id/image-like', removeBlanks, (req, res, next) => {
-  delete req.body.image.owner
-  Image.findById(req.params.id)
-    .then(image => {
-      return image.updateOne(req.body.image)
-    })
-    .then(image => res.sendStatus(204).json({ image: image }))
-    .catch(next)
-})
-
-// PATCH /image/:id
 router.patch('/images/:id/for-sale', removeBlanks, (req, res, next) => {
   delete req.body.image.owner
   Image.findById(req.params.id)
