@@ -6,6 +6,13 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  description: {
+    type: String,
+    required: true
+  },
+  borderColor: {
+    type: String
+  },
   posts: [postSchema],
   owner: {
     type: mongoose.Schema.Types.ObjectId,
