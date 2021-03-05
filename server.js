@@ -13,7 +13,7 @@ const commentRoutes = require('./app/routes/comment_routes')
 const awsRoutes = require('./app/routes/aws_routes')
 // const uploadRoutes = require('./app/routes/upload_routes')
 const imageLikeRoutes = require('./app/routes/imagelike_routes')
-
+const postLikeRoutes = require('./app/routes/postlike_routes')
 // require middleware
 const errorHandler = require('./lib/error_handler')
 const replaceToken = require('./lib/replace_token')
@@ -76,7 +76,7 @@ app.use(commentRoutes)
 app.use(awsRoutes)
 // app.use(uploadRoutes)
 app.use(imageLikeRoutes)
-
+app.use(postLikeRoutes)
 // register error handling middleware
 // note that this comes after the route middlewares, because it needs to be
 // passed any error messages from them
