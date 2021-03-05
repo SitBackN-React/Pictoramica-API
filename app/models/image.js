@@ -17,6 +17,10 @@ const imageSchema = new mongoose.Schema({
 
   imageLikes: [imageLikeSchema],
 
+  price: {
+    type: Number
+  },
+
   forSale: {
     type: Boolean
   },
