@@ -11,7 +11,8 @@ curl "${API}${URL_PATH}" \
       "tag": "'"${TAG}"'",
       "caption": "'"${CAPTION}"'",
       "imageUrl": "'"${IMAGE}"'",
-      "forSale": "'"${SALE}"'"
+      "forSale": "'"${SALE}"'",
+      "price": "'"${PRICE}"'"
     }
   }'
 

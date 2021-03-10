@@ -19,6 +19,7 @@ const imageSchema = new mongoose.Schema({
 
   price: {
     type: Number
+    // required: true
   },
 
   forSale: {
