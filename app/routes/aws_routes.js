@@ -30,6 +30,7 @@ router.post('/post-image', requireToken, upload.single('image'), (req, res, next
         caption: req.body.caption,
         imageUrl: data.Location,
         forSale: req.body.forSale,
+        price: req.body.price,
         owner: req.user.id
       })
     })

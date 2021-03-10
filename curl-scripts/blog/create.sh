@@ -10,7 +10,8 @@ curl "${API}${URL_PATH}" \
   --header "Authorization: Bearer ${TOKEN}" \
   --data '{
     "blog": {
-      "title": "'"${TITLE}"'"
+      "title": "'"${TITLE}"'",
+      "backgroundId": "'"${BGID}"'"
     }
   }'
 
