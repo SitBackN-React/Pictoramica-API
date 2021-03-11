@@ -85,24 +85,22 @@ router.delete('/blogs/:blogId/posts/:postId/comments/:commentId', requireToken, 
     .catch(next)
 })
 
-// SHOW a comment
-router.get('/blogs/:blogId/posts/:postId/comments/:commentId', (req, res, next) => {
+// SHOW all comments
+router.get('/blogs/:blogId/posts/:postId/comments', (req, res, next) => {
   // get blog id from params
   const blogId = req.params.blogId
   // get blog post id from params
   const postId = req.params.postId
-  // get comment id from params
-  const commentId = req.params.commentId
   // find blog by its id
   Blog.findById(blogId)
     .then(handle404)
     .then(blog => {
-      // assign comment object to comment
-      let comment = blog.posts.id(postId).comments.id(commentId)
+      // assign comments object to comments
+      let comments = blog.posts.id(postId).comments
       // handle404 for comment
-      comment = handle404(comment)
+      comments = handle404(comments)
       // respond to user with OK message and comment info
-      res.status(200).json({ comment: comment })
+      res.status(200).json({ comments: comments })
     })
     .catch(next)
 })
