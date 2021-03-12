@@ -45,8 +45,13 @@ router.post('/sign-up', (req, res, next) => {
       // return necessary params to create a user
       return {
         email: req.body.credentials.email,
+        username: req.body.credentials.username,
         hashedPassword: hash
       }
+    })
+    .then(user => {
+      console.log(user)
+      return user
     })
     // create user with provided email and hashed password
     .then(user => User.create(user))
@@ -63,8 +68,8 @@ router.post('/sign-in', (req, res, next) => {
   const pw = req.body.credentials.password
   let user
 
-  // find a user based on the email that was passed
-  User.findOne({ email: req.body.credentials.email })
+  // find a user based on the username that was passed
+  User.findOne({ username: req.body.credentials.username })
     .then(record => {
       // if we didn't find a user with that email, send 401
       if (!record) {

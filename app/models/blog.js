@@ -1,13 +1,19 @@
 const mongoose = require('mongoose')
-const exampleSchema = new mongoose.Schema({
+
+const postSchema = require('./post')
+const blogSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
   },
-  text: {
+  description: {
     type: String,
     required: true
   },
+  borderColor: {
+    type: String
+  },
+  posts: [postSchema],
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
@@ -17,4 +23,4 @@ const exampleSchema = new mongoose.Schema({
   timestamps: true
 })
 
-module.exports = mongoose.model('Example', exampleSchema)
+module.exports = mongoose.model('Blog', blogSchema)
