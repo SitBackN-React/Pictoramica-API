@@ -35,8 +35,6 @@ router.post('/blogs/:blogId/posts/:postId/postLikes', requireToken, (req, res, n
   const postLikeData = req.body.postLike
   const postId = req.params.postId
   const blogId = req.params.blogId
-  console.log(postId, 'its the post id')
-  console.log(blogId, 'its the blog id')
   Blog.findById(blogId)
     .then(handle404)
     .then(blog => {
