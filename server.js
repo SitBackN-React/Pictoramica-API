@@ -63,27 +63,35 @@ app.use(express.static('.'))
 const YOUR_DOMAIN = `http://localhost:${clientDevPort}/#/`
 
 app.post('/create-checkout-session', async (req, res) => {
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    line_items: [
-      {
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: 'Image',
-            images: ['']
+  try {
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Image',
+              images: ['']
+            },
+            unit_amount: 20
           },
-          unit_amount: 20
-        },
-        quantity: 1
+          quantity: 1
+        }
+      ],
+      mode: 'payment',
+      success_url: `${YOUR_DOMAIN}?success=true`,
+      cancel_url: `${YOUR_DOMAIN}?canceled=true`
+    })
+    res.json({ id: session.id })
+  } catch (e) {
+    res.status(400)
+    return res.send({
+      error: {
+        message: e.message
       }
-    ],
-    mode: 'payment',
-    success_url: `${YOUR_DOMAIN}?success=true`,
-    cancel_url: `${YOUR_DOMAIN}?canceled=true`
-  })
-
-  res.json({ id: session.id })
+    })
+  }
 })
 // set CORS headers on response from this API using the `cors` NPM package
 // `CLIENT_ORIGIN` is an environment variable that will be set on Heroku
