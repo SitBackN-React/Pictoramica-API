@@ -45,77 +45,46 @@ mongoose.connect(db, {
 const app = express()
 // Sets up the server side endpoint to create the Checkout session
 // Implements secret key
-const Stripe = require('stripe')
-const stripe = Stripe('sk_test_51HobYFEybVIVldfcky1ZlNWny1FvFyRV5pmg6ijHd9hR4jEM58dxUfpLiqpVZC3glcSfeAhryGt221Q47wiHb3br00zqZOL5Vy')
-
-app.use(express.static('.'))
-
-// app.post('/checkout', async (req, res) => {
-// // const paymentIntent = await stripe.paymentIntents.create({
-// //     amount: 1000,
-// //     currency: 'usd',
-// //     payment_method_types: ['card'],
-// //     receipt_email: 'jenny.rosen@example.com'
+// const Stripe = require('stripe')
+// const stripe = Stripe('sk_test_51HobYFEybVIVldfcky1ZlNWny1FvFyRV5pmg6ijHd9hR4jEM58dxUfpLiqpVZC3glcSfeAhryGt221Q47wiHb3br00zqZOL5Vy')
+//
+// app.use(express.static('.'))
+//
+// // app.post('/checkout', async (req, res) => {
+// // // const paymentIntent = await stripe.paymentIntents.create({
+// // //     amount: 1000,
+// // //     currency: 'usd',
+// // //     payment_method_types: ['card'],
+// // //     receipt_email: 'jenny.rosen@example.com'
+// // // })
+// // // console.log(paymentIntent)
 // // })
-// // console.log(paymentIntent)
-// })
-
-const YOUR_DOMAIN = `http://localhost:${clientDevPort}/#/`
-
+//
+// const YOUR_DOMAIN = `http://localhost:${clientDevPort}/#/`
+//
 // app.post('/create-checkout-session', async (req, res) => {
-//   try {
-//     const session = await stripe.checkout.sessions.create({
-//       payment_method_types: ['card'],
-//       line_items: [
-//         {
-//           price_data: {
-//             currency: 'usd',
-//             product_data: {
-//               name: 'Image',
-//               images: ['']
-//             },
-//             unit_amount: 20
+//   const session = await stripe.checkout.sessions.create({
+//     payment_method_types: ['card'],
+//     line_items: [
+//       {
+//         price_data: {
+//           currency: 'usd',
+//           product_data: {
+//             name: 'Image',
+//             images: ['']
 //           },
-//           quantity: 1
-//         }
-//       ],
-//       mode: 'payment',
-//       success_url: `${YOUR_DOMAIN}?success=true`,
-//       cancel_url: `${YOUR_DOMAIN}?canceled=true`
-//     })
-//     res.json({ id: session.id })
-//   } catch (e) {
-//     res.status(400)
-//     return res.send({
-//       error: {
-//         message: e.message
+//           unit_amount: 20
+//         },
+//         quantity: 1
 //       }
-//     })
-//   }
+//     ],
+//     mode: 'payment',
+//     success_url: `${YOUR_DOMAIN}?success=true`,
+//     cancel_url: `${YOUR_DOMAIN}?canceled=true`
+//   })
+//
+//   res.json({ id: session.id })
 // })
-app.post('/create-checkout-session', (req, res) => {
-  stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    line_items: [
-      {
-        price_data: {
-          currency: 'usd',
-          product_data: {
-            name: 'Image',
-            images: ['']
-          },
-          unit_amount: 20
-        },
-        quantity: 1
-      }
-    ],
-    mode: 'payment',
-    success_url: `${YOUR_DOMAIN}?success=true`,
-    cancel_url: `${YOUR_DOMAIN}?canceled=true`
-  })
-    .then(session => res.json({ id: session.id }))
-    .catch(() => res.status(400))
-})
 // set CORS headers on response from this API using the `cors` NPM package
 // `CLIENT_ORIGIN` is an environment variable that will be set on Heroku
 app.use(cors({ origin: process.env.CLIENT_ORIGIN || `http://localhost:${clientDevPort}` }))
