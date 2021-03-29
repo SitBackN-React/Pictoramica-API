@@ -5,7 +5,7 @@ const mongooseBaseName = 'Pictoramica'
 
 // create the mongodb uri for development and test
 const database = {
-  development: `mongodb://127.0.0.1/${mongooseBaseName}`,
+  development: `mongodb://localhost:27017/${mongooseBaseName}`,
   test: `mongodb://localhost/${mongooseBaseName}-test`
 }
 
