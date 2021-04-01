@@ -38,15 +38,15 @@ const clientDevPort = 7165
 // use createIndex instead of deprecated ensureIndex
 mongoose.connect(db, {
   useNewUrlParser: true,
-  useCreateIndex: true
+  useCreateIndex: true,
+  useUnifiedTopology: true
 })
 
 // instantiate express application object
 const app = express()
 // Sets up the server side endpoint to create the Checkout session
 // Implements secret key
-const Stripe = require('stripe')
-const stripe = Stripe('sk_test_51HobYFEybVIVldfcky1ZlNWny1FvFyRV5pmg6ijHd9hR4jEM58dxUfpLiqpVZC3glcSfeAhryGt221Q47wiHb3br00zqZOL5Vy')
+const stripe = require('stripe')(process.env.STRIPE_SECRET)
 
 app.use(express.static('.'))
 
