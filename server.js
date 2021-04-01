@@ -16,7 +16,7 @@ const cartItemRoutes = require('./app/routes/cartItem_routes')
 const awsRoutes = require('./app/routes/aws_routes')
 // const uploadRoutes = require('./app/routes/upload_routes')
 const imageLikeRoutes = require('./app/routes/imagelike_routes')
-const postLikeRoutes = require('./app/routes/postLike_routes')
+const postLikeRoutes = require('./app/routes/postlike_routes')
 // require middleware
 const errorHandler = require('./lib/error_handler')
 const replaceToken = require('./lib/replace_token')
