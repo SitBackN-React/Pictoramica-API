@@ -7,8 +7,8 @@ Pictoramica-API is the backend API for the Pictoramica-Client application. Using
 - Application: https://sitbackn-react.github.io/pictoramica/#/
 - Frontend Repo (Version 1): https://github.com/SitBackN-React/Pictoramica-Client
 - Backend Repo (Version 1): https://github.com/SitBackN-React/Pictoramica-API
-- Frontend Repo (Version 2): https://github.com/SitBackN-React/pictoramica (Currently in production)
-- Backend Repo (Version 2): https://github.com/SitBackN-React/pictoramica-server (Currently in production)
+- Frontend Repo (Version 2): https://github.com/SitBackN-React/pictoramica (Currently in development)
+- Backend Repo (Version 2): https://github.com/SitBackN-React/pictoramica-server (Currently in development)
 
 
 ## API Endpoints
@@ -21,6 +21,14 @@ Pictoramica-API is the backend API for the Pictoramica-Client application. Using
 | POST   | `/images`       | `images#create`    |
 | PATCH  | `/images/:id`   | `images#update`    |
 | DELETE | `/images/:id`   | `images#destroy`   |
+
+
+### ImageLikes
+| Verb   | URI Pattern                                  | Controller#Action      |
+|:-------|:---------------------------------------------|:-----------------------|
+| GET    | `/images/:imageId/imageLikes/:imageLikeId`   | `imageLikes#show`      |
+| POST   | `/images/:imageId/imageLikes`                | `imageLikes#create`    |
+| DELETE | `/images/:imageId/imageLikes/:imageLikeId`   | `imageLikes#destroy`   |
 
 
 ### Blogs
@@ -43,13 +51,27 @@ Pictoramica-API is the backend API for the Pictoramica-Client application. Using
 | DELETE | `/blogs/:blogId/posts/:postId`   | `posts#destroy`   |
 
 
+### PostLikes
+| Verb   | URI Pattern                                            | Controller#Action     |
+|:-------|:-------------------------------------------------------|:----------------------|
+| GET    | `/blogs/:blogId/posts/:postId/postLikes/:postLikeId`   | `postLikes#show`      |
+| POST   | `/blogs/:blogId/posts/postLikes`                       | `postLikes#create`    |
+| DELETE | `/blogs/:blogId/posts/:postId/postLikes/:postLikeId`   | `postLikes#destroy`   |
+
+
 ### Comments
-| Verb   | URI Pattern                                          | Controller#Action |
-|:-------|:-----------------------------------------------------|:------------------|
-| GET    | `/blogs/:blogId/posts/:postId/comments/:commentId`   | `comments#show`   |
-| POST   | `/blogs/:blogId/postscomments`                       | `posts#create`    |
-| PATCH  | `/blogs/:blogId/posts/:postIdcomments/:commentId`    | `posts#update`    |
-| DELETE | `/blogs/:blogId/posts/:postIdcomments/:commentId`    | `posts#destroy`   |
+| Verb   | URI Pattern                                          | Controller#Action    |
+|:-------|:-----------------------------------------------------|:---------------------|
+| GET    | `/blogs/:blogId/posts/:postId/comments/:commentId`   | `comments#show`      |
+| POST   | `/blogs/:blogId/posts/:postId/comments`              | `comments#create`    |
+| PATCH  | `/blogs/:blogId/posts/:postId/comments/:commentId`   | `comments#update`    |
+| DELETE | `/blogs/:blogId/posts/:postId/comments/:commentId`   | `comments#destroy`   |
+
+
+### AWS
+| Verb   | URI Pattern     | Controller#Action  |
+|:-------|:----------------|:-------------------|
+| POST   | `/post-image`   | `awss#create`      |
 
 
 ## WireFrame
